@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}Edit blog post!{% endblock %}
+{% block content %}
+
+{% if user.is_authenticated %}
+    {% if user.id == post.author.id %}
+        <h1  class="mt-5">Update Post</h1>
+        <br/><br/>
+        <div class="form-group">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.media }}
+                {{ form.as_p }}
+                <button class="btn btn-outline-success">Update</button>
+        </div>
+    {% else %}
+            You're not allowed here! (and you know it....)
+    {% endif %}
+{% else %}
+You're not allowed here! (and you know it....)
+{% endif %}
+
+{% endblock %}
+

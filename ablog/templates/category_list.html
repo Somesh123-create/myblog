@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Blog Category{% endblock %}
+{% block content %}
+
+<h1  class="mt-5">Blog Category</h1>
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+      {% for item in cat_menu_list %}
+         <li class="breadcrumb-item"><a href="{% url 'category' item %}">{{item}}</a></li>
+      {% endfor %}
+  </ol>
+</nav>
+
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1  class="mt-5">Post</h1>
+
+{% for post in object_list %}
+    <div class="card text-center">
+          <div class="card-header">
+            <a href="{% url 'category' post.category %}" class="mr-5">{{ post.category }}</a>
+              <div class="btn-group" role="group" aria-label="Basic example">
+                  {% if user.is_authenticated %}
+                        {% if user.id == post.author.id %}
+                            <a href="{% url 'update_post' post.pk %}" class="btn btn-warning">Edit</a>
+                            <a href="{% url 'delete_post' post.pk %}" class="btn btn-danger">Delete</a>
+                        {% endif %}
+                    {% endif %}
+              </div>
+          </div>
+      <div class="card-body" style="background-image: url(https://venngage-wordpress.s3.amazonaws.com/uploads/2018/09/Simple-White-Gradient-Background-Image.jpg);">
+        <h5 class="card-title">{{ post.title }}</h5>
+        <p class="card-text">{{ post.snippet }}</p>
+        <a href="{% url 'article' post.pk %}" class="btn btn-primary">View</a>
+      </div>
+      <div class="card-footer text-muted">
+        {{ post.author.first_name }} {{ post.author.last_name }}-{{post.post_date}}
+      </div>
+    </div>
+</br> </br>
+{% endfor %}
+{% endblock %}

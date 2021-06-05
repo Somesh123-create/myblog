@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% if category_posts %}
+<h1  class="mt-5">{{ cats }}</h1>
+</br>
+{% for post in category_posts %}
+    <div class="card text-center">
+          <div class="card-header">
+            <a href="{% url 'category' post.category %}" class="mr-5">{{ post.category }}</a>
+              <div class="btn-group" role="group" aria-label="Basic example">
+                  {% if user.is_authenticated %}
+                        {% if user.id == post.author.id %}
+                            <a href="{% url 'update_post' post.pk %}" class="btn btn-warning">Edit</a>
+                            <a href="{% url 'delete_post' post.pk %}" class="btn btn-danger">Delete</a>
+                        {% endif %}
+                    {% endif %}
+              </div>
+          </div>
+      <div class="card-body" style="background-image: url(https://venngage-wordpress.s3.amazonaws.com/uploads/2018/09/Simple-White-Gradient-Background-Image.jpg);>
+        <h5 class="card-title">{{ post.title }}</h5>
+        <p class="card-text">{{ post.snippet }}</p>
+        <a href="{% url 'article' post.pk %}" class="btn btn-primary">View</a>
+      </div>
+      <div class="card-footer text-muted">
+        {{ post.author.first_name }} {{ post.author.last_name }}-{{post.post_date}}
+      </div>
+    </div>
+</br> </br>
+{% endfor %}
+{% else %}
+    <h1>This page does not exist..</h1>
+{% endif %}
+
+
+
+{% endblock %}
